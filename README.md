@@ -104,7 +104,7 @@ services:
       - /path/to/rclone.conf:/config/rclone/rclone.conf
       - /path/to/my/files:/data
     healthcheck:
-      test: "/bin/sh -c '[ \"$$(($$(date +%s) - $$(date +%s -r /var/log/sync.log)))\" -lt \"$$((60 * 60))\" ] && cat /var/log/sync.log | grep \"complete\"' || exit 1 && wget --spider --quiet --tries=5 --timeout=10 http://healthchecks:8000/ping/faeb8fd5-09ca-4122-839b-bb51dcc6028b || exit"
+      test: "/bin/sh -c '[ \"$$(($$(date +%s) - $$(date +%s -r /var/log/sync.log)))\" -lt \"$$((60 * 60))\" ] && cat /var/log/sync.log | grep \"periodic-rclone-sync complete\"' || exit 1 && wget --spider --quiet --tries=5 --timeout=10 http://healthchecks:8000/ping/faeb8fd5-09ca-4122-839b-bb51dcc6028b || exit"
       interval: 5m
       timeout: 10s
       retries: 15
@@ -120,7 +120,7 @@ services:
     volumes:
       - /path/to/rclone.conf:/config/rclone/rclone.conf
     healthcheck:
-      test: "/bin/sh -c '[ \"$$(($$(date +%s) - $$(date +%s -r /var/log/sync.log)))\" -lt \"$$((24 * 60 * 60))\" ] && cat /var/log/sync.log | grep \"complete\"' || exit 1 && wget --spider --quiet --tries=5 --timeout=10 http://healthchecks:8000/ping/faeb8fd5-09ca-4122-839b-bb51dcc6028b || exit"
+      test: "/bin/sh -c '[ \"$$(($$(date +%s) - $$(date +%s -r /var/log/sync.log)))\" -lt \"$$((24 * 60 * 60))\" ] && cat /var/log/sync.log | grep \"periodic-rclone-sync complete\"' || exit 1 && wget --spider --quiet --tries=5 --timeout=10 http://healthchecks:8000/ping/faeb8fd5-09ca-4122-839b-bb51dcc6028b || exit"
       interval: 5m
       timeout: 10s
       retries: 15

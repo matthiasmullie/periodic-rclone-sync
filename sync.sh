@@ -4,7 +4,6 @@ LOG=/var/log/sync.log
 
 if [ "$(($(date +%s) / 60 % ${INTERVAL}))" -eq "0" ]
 then
-  rclone sync ${SOURCE} ${TARGET}
-  printf "Syncing ${SOURCE} to ${TARGET} complete\n" > ${LOG}
+  rclone sync ${SOURCE} ${TARGET} > ${LOG} && printf "periodic-rclone-sync complete: ${SOURCE} to ${TARGET}\n" >> ${LOG}
   cat ${LOG}
 fi
