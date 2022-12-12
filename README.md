@@ -63,6 +63,7 @@ docker run -d \
 - We also make our local files (in this case at `/path/to/my/files`) accessible to the container (at `/data`, but can be any path)
 - We set the SOURCE to be `/data`, the same one we just made our files accessible at
 - We set TARGET up to be `NAS:/files/from/my/machine`: the first part (`NAS`) is the name you'd given this provider in rclone; the second part is the path of your files on that provider
+- We're passing some additional OPTIONS (`--checkers=2 --transfers=2 --check-first`) for rclone to reduce the amount of parallel FTP connections
 - And since we want this to be run hourly, we're going to set the INTERVAL to 60 minutes
 
 Let's now imagine we want to back up the `/files` folder on our NAS to `/my-backup` on Google Drive, encrypted, on a daily basis.
