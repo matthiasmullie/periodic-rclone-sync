@@ -55,6 +55,7 @@ docker run -d \
     -e SOURCE=/data \
     -e TARGET=NAS:/files/from/my/machine \
     -e INTERVAL=60 \
+    -e OPTIONS="--checkers=2 --transfers=2 --check-first" \
     matthiasmullie/periodic-rclone-sync
 ```
 
@@ -100,6 +101,7 @@ services:
       - INTERVAL=60 # hourly
       - SOURCE=/data
       - TARGET=NAS:/files/from/my/machine
+      - OPTIONS=--checkers=2 --transfers=2 --check-first
     volumes:
       - /path/to/rclone.conf:/config/rclone/rclone.conf
       - /path/to/my/files:/data
@@ -134,8 +136,9 @@ This is a dead simple thing, there isn't all that much to configure.
 
 As mentioned before, we're using `rclone` internally for its extensive and excellent multi-provider support. Providers are to be configured via `rclone config`, and that config file then passed into this container to `/config/rclone/rclone.conf`.
 
-Other params (all required):
+Other params:
 
 * `INTERVAL`: the interval, in minutes, to run the synchronization at
 * `SOURCE`: provider & path to get the data from
 * `TARGET`: provider & path to sync the data to
+* `OPTIONS` (optional): additional rclone [options](https://rclone.org/docs/#options) (e.g. `--checkers=2 --transfers=2 --check-first`)
